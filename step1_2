@@ -1,0 +1,26 @@
+a, b = map(int, input().split())
+print(a-b)
+
+a, b = map(int, input().split())
+print(a*b)
+
+a, b = map(int, input().split())
+print(a/b)
+
+a, b = map(int, input().split())
+print(a+b)
+print(a-b)
+print(a*b)
+print(a//b)
+print(a%b)
+
+A, B, C = map(int, input().split())
+print((A+B)%C)
+print((A%C + B%C)%C)
+print((A*B)%C)
+print((A*B)%C)
+
+a = int(input())
+b = int(input())
+print("%d\n%d\n%d\n%d"%((a * (b % 10)), (a * ((b % 100)//10)), (a * (b//100)), (a * b)))
+
