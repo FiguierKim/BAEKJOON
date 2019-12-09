@@ -1,0 +1,44 @@
+N = int(input())
+
+for i in range(1,10):
+    print(N,'*',i,'=',N*i)
+    
+    
+    
+T = int(input())
+
+for i in range(T):
+    A, B = map(int, input().split())
+    print(A+B)
+    
+    
+import sys
+n = int(input())
+for i in range(n):
+    a,b = map(int,sys.stdin.readline().split())
+    print(a+b)
+    
+    
+N = int(input())
+
+for i in range(N, 0, -1):
+    print(i)
+    
+
+N = int(input())
+
+for i in range(1, N+1):
+    print(i)
+    
+    
+n = int(input())
+sum = 0
+
+for i in range(1, n+1):
+    sum = sum + i
+
+    
+print(sum)
+
+
+
