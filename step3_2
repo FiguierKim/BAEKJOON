@@ -1,0 +1,55 @@
+T = int(input())
+
+for i in range(1, T+1):
+    A, B = map(int, input().split())
+    print( "Case #",i,": ", A+B )
+    
+
+T = int(input())
+
+for i in range(1, T+1):
+    A, B = map(int, input().split())
+    C = A + B
+    print("Case #%s: %s + %s = %s"%(i, A, B, C))
+    
+
+N = int(input())
+
+for i in range(N):
+    print('*'*(i+1))
+    
+N = int(input())
+
+for i in range(N):
+    print(('*'*(i+1)).rjust(N))
+    
+
+
+
+
+
+N, X = map(int, input().split())
+A = [int(input()) for i in range(N)]
+
+for i in A:
+    if i<X:
+        print(i, end = ' ')
+        
+
+
+N, X = map(int, input().split())
+A = list(map(int, input().split()))
+
+for i in A:
+        if i < X:
+                print(i, end=" ")
+
+
+
+
+
+
+
+
+
+
