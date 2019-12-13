@@ -1,0 +1,39 @@
+N = int(input())
+a = list(map(int, input().split()))
+print('{} {}'.format(min(a), max(a)))
+
+
+
+num_list = []
+for i in range(9):
+    num_list.append(int(input()))
+    
+print(max(num_list))
+print(num_list.index(max(num_list))+1)      //fucking bad code. I need to fix it later
+
+
+
+
+
+scale_num = list(map(int, input().split()))
+if scale_num == [1,2,3,4,5,6,7,8]:
+    print("ascending")
+elif scale_num == [8,7,6,5,4,3,2,1]:
+    print("descending")
+else:
+    print("mixed")
+    
+    
+    
+    
+    
+   
+    
+A = int(input())
+B = int(input())
+C = int(input())
+
+mulnum = list(str(A * B * C))
+for i in range(10):
+    num_count = mulnum.count(str(i))
+    print(num_count)
