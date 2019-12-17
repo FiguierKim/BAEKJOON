@@ -1,0 +1,40 @@
+def solve(a):
+    result = 0
+    for n in a:
+        result += n
+    return result
+    
+    
+    
+    
+natural_number_set = set(range(1, 10001))
+generated_number_set= set()
+
+for i in range(1, 10001):
+    for j in str(i):
+        i += int(j)
+    generated_number_set.add(i)
+
+self_number_set = natural_number_set - generated_number_set
+
+for i in sorted(self_number_set):
+    print(i)
+    
+
+def Han(n):
+        cnt = 0
+        if (n < 100):
+                return n
+        else:
+                for i in range(100,(n+1)):
+                        hund = (i//100)
+                        ten = ((i%100)//10)
+                        one = ((i%100)%10)
+ 
+                        if ((hund - ten) == (ten - one)):
+                                cnt += 1
+                return (99+cnt)
+ 
+inp = int(input())
+res = Han(inp)
+print(res)
