@@ -1,0 +1,34 @@
+n = int(input())
+a = list(input())
+sum = 0
+
+if len(a) == n:
+
+    for i in a:
+        sum += int(i)
+        
+    print(sum)
+    
+elif len(a) > n:
+    print('숫자를 ',len(a)-n,'개 빼고 입력해주세요')
+
+else:
+    print('숫자를 ',n-len(a),'개 더 입력해주세요')
+    
+
+
+
+S = input()
+n = [-1]*26
+ 
+for i in range(len(S)):
+    if n[ord(S[i])-97] != -1:
+        continue
+    else:
+        n[ord(S[i])-97] = i
+        
+for i in range(26):
+    print(n[i], end=' ')
+    
+    
+    
