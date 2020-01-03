@@ -45,3 +45,50 @@ anw = str(x) + '/' + str(count - x)
 if count % 2 == 0:
     anw = str(count - x) + '/' + str(x)
 print(anw)
+
+
+
+
+
+
+A, B, V = list(map(int, input().split()))
+print((V - B - 1) // (A - B) + 1)
+
+
+
+
+
+
+Case = input()
+
+tlist = [list(map(int, input().split(' '))) for _ in range(int(Case))]
+
+def room(H, W, N):
+    Y = H if ((N % H) == 0) else N % H
+    X = (N // H) if ((N % H) == 0) else ((N // H) + 1)
+    
+    emp = ""
+    
+    if(X < 10):
+        emp = '0'
+    
+    return print(str(Y) + emp +str(X))
+
+for H, W, N in tlist:
+    room(H, W, N)
+    
+    
+    
+    
+
+
+
+Case = input()
+for _ in range(int(Case)):
+    k = int(input())
+    n = int(input())
+    num = [i for i in range(1, n + 1)]
+    for _ in range(k):
+        for j in range(1, n):
+            num[j] += num[j-1]
+    print(num[-1])
