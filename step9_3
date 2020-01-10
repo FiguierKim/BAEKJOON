@@ -1,0 +1,18 @@
+N = int(input())
+l = []
+
+for i in range(N):
+    s = int(input())
+    l += [s]
+    
+for i in sorted(l):
+    print(i)
+    
+    
+    
+    
+    
+    
+    
+a = [int(input()) for i in range(int(input()))]
+print('\n'.join(map(str, sorted(a))))
