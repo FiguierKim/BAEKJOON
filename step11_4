@@ -1,0 +1,31 @@
+N = 123456 * 2 + 1
+sieve = [True] * N
+
+for i in range(2, int(N**0.5)+1):
+    if sieve[i]:
+        for j in range(2*i, N, i):
+            sieve[j] = False
+
+def prime_cnt(val):
+    cnt = 0
+    for i in range(val + 1, val * 2 + 1):
+        if sieve[i]:
+            cnt += 1
+    print(cnt)
+
+while True:
+    val = int(input())
+    if val == 0:
+        break
+    prime_cnt(val)
+    
+    
+m = 10000
+s = [0,0] + [1]*(m-1)
+for i in range(2, int(m**0.5)+1):
+    for j in range(i+i, m+1, i):
+        if s[i]: s[j]=0
+for _ in range(int(input())):
+    n = int(input())
+    r = [(x, n-x) for x, y in enumerate(s[:n//2+1]) if y and s[n-x]][-1]
+    print(r[0], r[1])
