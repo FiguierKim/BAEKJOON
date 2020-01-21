@@ -1,0 +1,11 @@
+while(True):
+    num_list = list(map(int, input().split()))
+    if(sum(num_list) == 0):
+        break
+    
+    hypo = max(num_list); num_list.remove(hypo)
+    num = sum(list(map(lambda x : x ** 2, num_list)))
+    if((hypo ** 2) == num):
+        print('right')
+    else:
+        print('wrong')
