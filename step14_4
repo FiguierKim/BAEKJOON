@@ -1,0 +1,50 @@
+import itertools
+import sys
+
+def cal(lines, a, b):
+    return lines[int(a)][int(b)]
+
+def bruteforce(lines, n):
+    count = n // 2
+    members = range(n)
+    teams = itertools.combinations(members, count)
+    members = set(members)
+    min_result = 9999999
+
+    for team in teams:
+        start = set(list(team))
+        link = list(members - start)
+        start_total = 0
+        link_total = 0
+
+        if team[0] != 0:
+            break
+
+        start = list(start)
+        start_combi = itertools.combinations(start, 2)
+        for coms in start_combi:
+            start_total += cal(lines, coms[0], coms[1])
+
+        link_combi = itertools.combinations(link, 2)
+        for coml in link_combi:
+            link_total += cal(lines, coml[0], coml[1])
+
+        if abs(link_total - start_total) < min_result:
+            min_result = abs(link_total - start_total)
+
+    return min_result
+
+
+if __name__ == "__main__":
+    n = int(sys.stdin.readline().strip())
+    lines = []
+    for i in range(n):
+        line = list(map(int, sys.stdin.readline().strip().split()))
+        lines.append(line)
+
+    for i in range(n):
+        for j in range(n):
+            if j > i:
+                lines[i][j] = lines[i][j] + lines[j][i]
+                lines[j][i] = 0
+    print(bruteforce(lines, n))
