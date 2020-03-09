@@ -1,0 +1,16 @@
+N = int(input())
+
+def fibonach(f_1, f_2, cnt):
+    f_n = f_1 + f_2
+
+    if(cnt == 0):
+        return f_n
+    else:
+        return fibonach(f_2, f_n, cnt - 1)
+    
+if(N == 0):
+    print(0)
+elif(N == 1):
+    print(1)
+else:
+    print(fibonach(0, 1, N - 2))
