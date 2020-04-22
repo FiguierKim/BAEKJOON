@@ -7,6 +7,3 @@ for i in range(b):
 for i in range(2,b+1):
     sum = sum // i
 print(sum)
-
-
-출처: https://parkssiss.tistory.com/49 [코딩 쟁이]
