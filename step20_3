@@ -1,0 +1,19 @@
+Case = int(input())
+for _ in range(Case):
+    string = list(input())
+    close_cnt = 0
+        
+    while(len(string) != 0):
+        if(close_cnt < 0):
+            break
+        res = string.pop()
+
+        if(res == '('):
+            close_cnt -= 1
+        elif(res == ')'):
+            close_cnt += 1
+            
+    if(close_cnt == 0):
+        print('YES')
+    else:
+        print('NO')
