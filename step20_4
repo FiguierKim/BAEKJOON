@@ -1,0 +1,40 @@
+def push(stack, x):
+    stack.append(x)
+    
+def pop(stack):
+    return stack.pop()
+
+def top(stack):
+    return stack[-1] if stack else -1
+
+while(True):
+    sentence = input()
+    
+    if(sentence == "."):
+        break
+    else:
+        opend_stack = []
+        sentence_check = True
+        
+        for i in sentence:
+            if(i == "(" or i == "["):
+                push(opend_stack, i)
+            elif i == ")":
+                if(top(opend_stack) == "("):
+                    pop(opend_stack)
+                else:
+                    if(not opend_stack or top(opend_stack) == "["):
+                        sentence_check = False
+                        break
+            elif i == "]":
+                if(top(opend_stack) == "["):
+                    pop(opend_stack)
+                else:
+                    if(not opend_stack or top(opend_stack) == "("):
+                        sentence_check = False
+                        break
+
+        if(sentence_check and not opend_stack):
+            print("yes")
+        else:
+            print("no")
