@@ -1,0 +1,45 @@
+class Stack:
+    def __init__(self):
+        self.len = 0
+        self.list = []
+        
+    def push(self, x):
+        self.list.append(x)
+        self.len += 1
+        
+    def pop(self):
+        if(self.size() == 0):
+            return -1
+        self.len -= 1
+        return self.list.pop()
+    
+    def size(self):
+        return self.len
+        
+    def top(self):
+        return self.list[-1] if self.size() else -1
+    
+    def empty(self):
+        return 1 if len(self.list) == 0 else 0
+        
+Case = int(input())
+num_list = [int(input()) for _ in range(Case)]
+output_list = []
+
+num_pointer = 0
+stack = Stack()
+
+for i in range(Case):
+    stack.push(i + 1)
+    output_list.append('+')
+    
+    while(num_pointer < Case and stack.top() == num_list[num_pointer]):
+        stack.pop()
+        output_list.append('-')
+        num_pointer += 1
+        
+if not stack.empty():
+    print("NO")
+else:
+    for i in output_list:
+        print(i)
