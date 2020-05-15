@@ -1,0 +1,38 @@
+import sys
+
+# N, M = map(int, sys.stdin.readline().split())
+N, M = map(int, input().split())
+elements = [x for x in range(1, N + 1)]
+position = list(map(int, input().split()))
+count = 0
+
+for i in range(len(position)):
+    left = 0
+    right = 0
+    memory = [0] * len(elements)
+    
+    if(elements[0] == position[i]):
+        del elements[0]
+    else:
+        for j in range(len(elements)):
+            memory[j] = elements[j]
+        
+        while memory[0] != position[i]:
+            memory.insert(0, memory[-1])
+            del memory[-1]
+            right += 1
+            
+
+        while elements[0] != position[i]:
+            elements.append(elements[0])
+            del elements[0]
+            left += 1
+            
+        if(right >= left):
+            count = count + left
+        else:
+            count = count + right
+            elements = memory
+            
+        del elements[0]
+sys.stdout.write(str(count))
