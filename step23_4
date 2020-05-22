@@ -10,3 +10,5 @@ def solve(A, B):
     else:
         result = solve(A, B//2)
         return result ** 2 % C
+
+print(solve(A, B) % C)
