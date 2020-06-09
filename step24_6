@@ -1,0 +1,17 @@
+n = int(input())
+k = int(input())
+st = 1
+en = n * n
+res = 0
+
+while st <= en:
+    mid = (st + en)//2
+    cnt = 0
+    for i in range(1,n+1):
+        cnt = cnt + min(mid//i,n)
+    if cnt < k:
+        st = mid + 1
+    else:
+        res = mid
+        en = mid - 1
+print(res)
