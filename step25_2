@@ -1,0 +1,41 @@
+import sys
+input=sys.stdin.readline
+pq=[]
+pqlen=0
+ 
+N=int(input())
+while N>0:
+    N-=1
+    x=int(input())
+    if x>0:#push
+        pq.append(x)
+        pqlen += 1
+        a=pqlen-1
+        while a>0:
+            if pq[a]<pq[(a-1)//2]:  
+                pq[a],pq[(a-1)//2]=pq[(a-1)//2],pq[a]
+                a=(a-1)//2
+            else:
+                break
+ 
+ 
+    elif x==0:#pop
+        if pqlen==0:
+            print(0)
+        else:
+            print(pq[0])
+            pq[0]=pq[pqlen-1]
+            pq.pop()
+            pqlen-=1
+            a=0 
+            child=1
+            while child<=pqlen-1:
+                if a*2+2<=pqlen-1 and pq[a*2+1]>pq[a*2+2]:
+                    child=a*2+2
+ 
+                if pq[child]<pq[a]:
+                    pq[child],pq[a]=pq[a],pq[child]
+                    a=child
+                    child=a*2+1
+                else:
+                    break
