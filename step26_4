@@ -1,24 +1,42 @@
 import sys
+ 
+ 
+def dp(i,j,N,M):
+    if path[i][j]>0:
+        return
+    path[i][j]=0
+    if i>0 and map[i-1][j]>map[i][j]:
+        if path[i-1][j]<0:
+            dp(i-1,j,N,M)
+        path[i][j]+=path[i-1][j]
 
-input = sys.stdin.readline
-dx = [1, -1, 0, 0]
-dy = [0, 0, 1, -1]
+    if i<N-1 and map[i+1][j]>map[i][j]:
+        if path[i+1][j]<0:
+            dp(i+1,j,N,M)
+        path[i][j]+=path[i+1][j]
 
-def dfs(x, y):
-    if x == m-1 and y == n-1:
-        return 1
-    if c[x][y] != -1:
-        return c[x][y]
-    c[x][y] = 0
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
-        if 0 <= nx < m and 0 <= ny < n:
-            if a[nx][ny] < a[x][y]:
-                c[x][y] += dfs(nx, ny)
-    return c[x][y]
+    if j>0 and map[i][j-1]>map[i][j]:
+        if path[i][j-1]<0:
+            dp(i,j-1,N,M)
+        path[i][j]+=path[i][j-1]
 
-m, n = map(int, input().split())
-a = [list(map(int, input().split())) for _ in range(m)]
-c = [[-1]*n for _ in range(m)]
-print(dfs(0, 0))
+    if j<M-1 and map[i][j+1]>map[i][j]:
+        if path[i][j+1]<0:
+            dp(i,j+1,N,M)
+        path[i][j]+=path[i][j+1]
+ 
+ 
+ 
+ 
+N,M=map(int,sys.stdin.readline().split())
+ 
+map=[list(map(int,sys.stdin.readline().split())) for _ in range(N)]
+ 
+path=[[-1 for _ in range(M)] for _ in range(N)]
+path[0][0]=1
+ 
+for i in range(N):
+    for j in range(M):
+        dp(i,j,N,M)
+ 
+print(path[-1][-1])
