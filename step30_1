@@ -1,0 +1,36 @@
+import sys
+input = sys.stdin.readline
+
+S = []
+
+def do(order, num):
+    global S
+    if order == 'add':
+        if num not in S:
+            S.append(num)
+    elif order == 'remove':
+        if num in S:
+            S.remove(num)
+    elif order == 'check':
+        if num in S:
+            print(1)
+        else:
+            print(0)
+    elif order == 'toggle':
+        if num in S:
+            S.remove(num)
+        else:
+            S.append(num)
+    elif order == 'all':
+        S = [i for i in range(1, 21)]
+    elif order == 'empty':
+        S = []
+
+n = int(input())
+for i in range(n):
+    s = input().strip()
+    if s == 'all' or s == 'empty':
+        do(s, 0)
+        continue
+    s = s.split()
+    do(s[0], int(s[1]))
