@@ -1,0 +1,49 @@
+import sys
+import heapq
+
+n=int(sys.stdin.readline())
+m=int(sys.stdin.readline())
+ 
+G=[[] for _ in range(n+1)]
+ 
+INF=sys.maxsize
+result=[INF for _ in range(n+1)]
+Trace=[0 for _ in range(n+1)]
+ 
+for _ in range(m):
+    s,e,d=map(int,sys.stdin.readline().split())
+    G[s].append([d,e])
+ 
+S,E=map(int,sys.stdin.readline().split())
+result[S]=0
+ 
+ 
+ 
+q=[]
+heapq.heappush(q,[0,S])
+while q:
+    dis,end=heapq.heappop(q)
+ 
+    if result[end]<dis:
+        continue
+ 
+ 
+    for d,x in G[end]:
+        d+=dis
+        if result[x]>d:
+            result[x]=d
+            Trace[x]=end
+            heapq.heappush(q,[d,x])
+ 
+print(result[E])
+
+count=0
+path=[E]
+tmp=Trace[E]
+while tmp!=0:
+    path.append(tmp)
+    tmp = Trace[tmp]
+ 
+ 
+print(len(path))
+print(*path[::-1])
