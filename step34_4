@@ -1,0 +1,126 @@
+
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+import sys
+sys.setrecursionlimit(1000000)
+ 
+n = int(sys.stdin.readline())
+tree = dict()
+root = 'A'
+ 
+class node:
+    def __init__(self):
+        self.data = None
+        self.left = None
+        self.right = None
+ 
+def preorder(node):
+    sys.stdout.write(node.data)
+    if node.left is not None:
+        preorder(tree[node.left])
+    if node.right is not None:
+        preorder(tree[node.right])
+ 
+def inorder(node):
+    if node.left is not None:
+        inorder(tree[node.left])
+    sys.stdout.write(node.data)
+    if node.right is not None:
+        inorder(tree[node.right])
+ 
+def postorder(node):
+    if node.left is not None:
+        postorder(tree[node.left])
+    if node.right is not None:
+        postorder(tree[node.right])
+    sys.stdout.write(node.data)
+ 
+ 
+for i in range(n):
+    a, b, c = sys.stdin.readline().split()
+    if a == root:
+        tree[root] = node()
+        tree[root].data = a
+        if b != '.':
+            tree[root].left = b
+            tree[b] = node()
+            tree[b].data = b
+        if c!= '.':
+            tree[root].right = c
+            tree[c] = node()
+            tree[c].data = c
+    else:
+        if b!= '.':
+            tree[a].left = b
+            tree[b] = node()
+            tree[b].data = b
+        if c!= '.':
+            tree[a].right = c
+            tree[c] = node()
+            tree[c].data = c
+ 
+preorder(tree[root])
+sys.stdout.write('\n')
+inorder(tree[root])
+sys.stdout.write('\n')
+postorder(tree[root])
