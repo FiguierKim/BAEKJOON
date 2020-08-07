@@ -1,0 +1,29 @@
+import sys
+sys.setrecursionlimit(10**9)
+ 
+n = int(sys.stdin.readline())
+inorder = list(map(int, sys.stdin.readline().split()))
+postorder = list(map(int, sys.stdin.readline().split()))
+in_location=[0 for _ in range(n+1)]
+for i in range(n):
+    in_location[inorder[i]]=i
+ 
+ 
+def pre_order(in_l,in_r,post_l,post_r): 
+    if post_l <= post_r:
+        parents=postorder[post_r]
+ 
+        print(parents,end=" ")
+        p_index=in_location[parents]
+        # p_index = 0  
+        # for i in range(in_l,in_r+1):
+        #     if inorder[i]==parents:
+        #         p_index=i
+        #         break
+        l_count=p_index-in_l
+        r_count=in_r-p_index
+ 
+        pre_order(in_l , in_l+l_count-1 , post_l , post_l+l_count-1)
+        pre_order(in_r-r_count+1 , in_r , post_r-r_count , post_r-1)
+ 
+pre_order(0,n-1,0,n-1)
