@@ -1,0 +1,37 @@
+import sys
+import math
+import heapq
+ 
+n=int(sys.stdin.readline())
+s_location=[]
+G=[[] for _ in range(n)]
+
+for i in range(n):
+    x,y=map(float,sys.stdin.readline().split())
+    s_location.append([x,y])
+ 
+for i in range(n-1):
+    for j in range(i,n):
+        dis=round(math.sqrt((s_location[i][0]-s_location[j][0])**2+(s_location[i][1]-s_location[j][1])**2),2)
+        if i==j:
+            continue
+            
+        G[i].append([dis,j])
+        G[j].append([dis,i])
+ 
+q=[]
+heapq.heappush(q,[0,0])
+ 
+mst_value=0
+check=[0 for _ in range(n)]
+while q:
+    dis,end=heapq.heappop(q)
+    if check[end]==1:
+        continue
+    mst_value+=dis
+    check[end]=1
+    for dis,end in G[end]:
+        heapq.heappush(q,[dis,end])
+ 
+ 
+print(mst_value)
