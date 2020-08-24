@@ -1,0 +1,54 @@
+import sys
+import math
+
+def Find(x):
+    if p[x]==x:
+        return x
+    else:
+        y=Find(p[x])
+        p[x]=y
+        return y
+ 
+def Union(x,y):
+    x=Find(x)
+    y=Find(y)
+    if x!=y:
+        p[y]=x
+ 
+ 
+N,M=map(int,sys.stdin.readline().split())
+g_location=[]
+p=[i for i in range(N)]
+G=[]
+ 
+ 
+for _ in range(N):
+    x,y=map(int,sys.stdin.readline().split())
+    g_location.append([x,y])
+
+M_count=0
+for _ in range(M):
+    god1,god2=map(int,sys.stdin.readline().split())
+    if Find(god1-1)!=Find(god2-1):
+        Union(god1-1, god2-1)
+        M_count+=1
+
+for i in range(N-1):
+    for j in range(i+1,N):
+        dis = math.sqrt((g_location[i][0] - g_location[j][0]) ** 2 + (g_location[i][1] - g_location[j][1]) ** 2)
+        G.append([dis,i,j])
+ 
+ 
+G.sort(key=lambda x:x[0])
+ 
+result=0
+for dis,x,y in G:
+    if Find(x)!=Find(y):
+        Union(x,y)
+        result+=dis
+        M_count+=1
+    if M_count==N-1:
+        break
+ 
+ 
+print("%0.2f" % result)
