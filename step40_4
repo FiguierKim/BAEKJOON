@@ -1,0 +1,52 @@
+#include <cstdio>
+#include <algorithm>
+#include <vector>
+#define N 360000
+using namespace std;
+int n, f, t;
+bool arr[720100];
+bool brr[360100];
+int pi[360100];
+void getpi(){
+    int j = 0;
+    for (int i = 1; i < N; i++){
+        while (j > 0 && brr[i] != brr[j])
+            j = pi[j - 1];
+        if (brr[i] == brr[j])
+            pi[i] = ++j;
+    }
+}
+void kmp(){
+    int j = 0;
+    for (int i = 0; i < 2*N; i++){
+        while (j > 0 && arr[i] != brr[j])
+            j = pi[j - 1];
+        if (arr[i] == brr[j]){
+            if (j == N - 1){
+                f = true;
+                break;
+            }
+            else
+                j++;
+        }
+    }
+    if (f)
+        printf("possible");
+    else
+        printf("impossible");
+}
+int main(){
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++){
+        scanf("%d", &t);
+        arr[t] = 1;
+        arr[t + N] = 1;
+    }
+    for (int i = 0; i < n; i++){
+        scanf("%d", &t);
+        brr[t] = 1;
+    }
+    getpi();
+    kmp();
+    return 0;
+}
