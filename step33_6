@@ -1,0 +1,42 @@
+class Node:
+    def __init__(self,chr):
+        self.chr=chr
+        self.child={}
+        self.check=False
+ 
+def triedfs(node,s,n):
+    if len(s)==n:
+        if node.check:
+            result.append(s)
+            return
+        else:
+            return
+    if s[n] in node.child:
+        triedfs(node.child[s[n]], s, n + 1)
+    return
+
+trie=Node('')
+N,M=map(int,input().split())
+for _ in range(N):
+    tmp = trie
+    s=input().rstrip()
+    for i in s:
+        check=True
+        if i in tmp.child:
+            tmp=tmp.child[i]
+            if i==s[-1]:
+                tmp.check=True
+        else:
+            a=Node(i)
+            tmp.child[i]=a
+            tmp=a
+            if i == s[-1]:
+               tmp.check=True
+ 
+count=0
+result=[]
+for _ in range(M):
+    p=input().rstrip()
+    triedfs(trie,p,0)
+ 
+print(len(result))
