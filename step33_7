@@ -1,0 +1,47 @@
+import sys
+ 
+class Node:
+    def __init__(self,chr):
+        self.chr=chr
+        self.child={}
+        self.check=False
+ 
+class Trie:
+    def __init__(self):
+        self.root=Node('')
+ 
+    def insert_Word(self,word):
+        node = self.root
+        for w in word:
+            if w not in node.child:
+                new=Node(w)
+                node.child[w]=new
+                node=new
+            else:
+                node=node.child[w]
+        node.check=True
+
+    def search(self,word):
+        cnt=0
+        current=self.root
+        for w in word:
+            current=current.child[w]
+            if len(current.child)>1 or current.check:
+                cnt+=1
+        return cnt
+ 
+while 1:
+    t = Trie()
+    words=[]
+    try:n=int(sys.stdin.readline())
+    except:break
+ 
+    for _ in range(n):
+        s=sys.stdin.readline().rstrip()
+        t.insert_Word(s)
+        words.append(s)
+    result = 0
+    for word in words:
+        result+=t.search(word)
+ 
+    print("%.2f" % (result/n))
