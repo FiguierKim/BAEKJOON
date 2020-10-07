@@ -1,0 +1,98 @@
+import sys
+from math import log2
+from collections import deque
+ 
+N=int(sys.stdin.readline())
+logN=int(log2(N)+1)
+tree=[[] for _ in range(N+1)]
+for _ in range(N-1):
+    u,v,w=map(int,sys.stdin.readline().split())
+    tree[u].append([v,w])
+    tree[v].append([u,w])
+ 
+ 
+p_list=[[0,0] for _ in range(N+1)]
+depth=[0 for _ in range(N+1)]
+p_check=[True for _ in range(N+1)]
+
+q=deque()
+q.append(1)
+while q:
+    a=q.popleft()
+    p_check[a]=False
+    for b,c in tree[a]:
+        if p_check[b]:
+            p_list[b][0]=a
+            p_list[b][1]=c
+            q.append(b)
+            depth[b]=depth[a]+1
+            
+DP=[[[0,0] for _ in range(logN)] for _ in range(N+1)]
+
+for i in range(N+1):
+    DP[i][0][0]=p_list[i][0]
+    DP[i][0][1]=p_list[i][1]
+
+for j in range(1,logN):
+    for i in range(1,N+1):
+        DP[i][j][0]=DP[DP[i][j-1][0]][j-1][0]
+        if DP[i][j][0]!=0:
+            DP[i][j][1] = DP[i][j - 1][1] + DP[DP[i][j - 1][0]][j - 1][1]
+ 
+ 
+M=int(sys.stdin.readline())
+
+for _ in range(M):
+    Q=list(map(int,sys.stdin.readline().split()))
+    a=Q[1]
+    b=Q[2]
+    if depth[a] < depth[b]:
+        a, b = b, a
+ 
+    dif = depth[a] - depth[b]
+    
+    for i in range(logN):
+        if dif & 1 << i:
+            a = DP[a][i][0]
+    if a==b:
+        LCA=a
+    else:
+        for i in range(logN-1,-1,-1):
+            if DP[a][i][0]!=DP[b][i][0]:
+                a=DP[a][i][0]
+                b=DP[b][i][0]
+        LCA = DP[a][0][0]
+    lca_depth=depth[LCA]
+ 
+    if Q[0]==1:
+        sum = 0
+        dif_a=depth[Q[1]]-lca_depth
+        dif_b=depth[Q[2]]-lca_depth
+        # print(dif_a)
+        # print(dif_b)
+        for i in range(logN):
+            if dif_a & 1<<i:
+                sum +=DP[Q[1]][i][1]
+                Q[1]=DP[Q[1]][i][0]
+ 
+            if dif_b & 1<<i:
+                sum +=DP[Q[2]][i][1]
+                Q[2]=DP[Q[2]][i][0]
+        print(sum)
+ 
+ 
+ 
+    elif Q[0]==2:
+        gep=depth[Q[1]]-lca_depth+1
+        if Q[3]<=gep:
+            for i in range(logN):
+                if Q[3]-1 & 1<<i:
+                    Q[1]=DP[Q[1]][i][0]
+            print(Q[1])
+ 
+        else:
+            Q[3]=depth[Q[2]]-Q[3]+depth[Q[1]]-2*lca_depth+1
+            for i in range(logN):
+                if Q[3] & 1<<i:
+                    Q[2]=DP[Q[2]][i][0]
+            print(Q[2])
