@@ -71,4 +71,4 @@ for _ in range(K):
             E=DP[E][i][0]
     shortest = min(shortest, DP[D][i][1], DP[E][i][1])
     longest = max(longest, DP[D][i][2], DP[E][i][2])
-    print(shortest,longest)
+    print(shortest,longest) 
