@@ -1,0 +1,88 @@
+import sys
+
+def dist(a,b):
+    if b==0:
+        return N-w_list[a][0]+N-w_list[a][1]
+    elif a==0:
+        return w_list[b][0]-1+w_list[b][1]-1
+    return abs(w_list[a][0]-w_list[b][0])+abs(w_list[a][1]-w_list[b][1])
+ 
+ 
+N=int(sys.stdin.readline())
+W=int(sys.stdin.readline())
+w_list=[0]
+for _ in range(W):
+    w_list.append(list(map(int,sys.stdin.readline().split())))
+ 
+dp=[[0 for _ in range(W+1)] for _ in range(W+1)]
+dp_trace=[[0 for _ in range(W+1)] for _ in range(W+1)]
+ 
+for i in range(1,W+1):
+    if i==1:#첫사건
+        dp[i][0]= w_list[1][0] - 1 + w_list[1][1] - 1
+        dp[0][i]=N-w_list[1][0]+N-w_list[1][1]
+    else:
+        dp[0][i]=dp[0][i-1]+dist(i-1,i)
+        dp[i][0] = dp[i-1][0]+dist(i-1, i)
+    dp_trace[i][0]=i-1
+    dp_trace[0][i]=i-1
+ 
+ 
+for i in range(1,W+1):
+    for j in range(1,W+1):
+        if i < j:  # j가 더클때 2
+            if i - j == -1:
+                for k in range(j-1):
+                    if k==0:
+                        dp[i][j] = dp[i][k]+dist(j, k)
+                        dp_trace[i][j]=0
+                    else:
+                        if dp[i][j]>dp[i][k]+dist(j,k):
+                            dp[i][j] = dp[i][k] + dist(j, k)
+                            dp_trace[i][j]=k
+            else:
+                dp[i][j] = dp[i][j-1] + dist(j-1, j)
+                dp_trace[i][j]=j-1
+        if i > j:
+            if i - j ==1:
+                for k in range(0,i-1):
+                    if k==0:
+                        dp[i][j] = dp[k][j]+dist(k, i)
+                        dp_trace[i][j]=0
+                    else:
+                        if dp[i][j]>dp[k][j]+dist(k,i):
+                            dp[i][j] = dp[k][j] + dist(k, i)
+                            dp_trace[i][j]=k
+            else:
+                dp[i][j] = dp[i-1][j] + dist(i - 1, i)
+                dp_trace[i][j]=i-1
+ 
+min_value=99999999999999
+police1=0
+police2=0
+for i in range(W+1):
+    if i!=W:
+        if dp[W][i]<min_value:
+            min_value=dp[W][i]
+            police1=W
+            police2=i
+        if dp[i][W]<min_value:
+            min_value=dp[i][W]
+            police1 = i
+            police2 = W
+ 
+print(min_value)
+# print(police1)
+# print(police2)
+ 
+trace=[]
+for i in range(W):
+    if police2>police1:
+        police2=dp_trace[police1][police2]
+        trace.append(2)
+    else:
+        police1=dp_trace[police1][police2]
+        trace.append(1)
+ 
+for i in range(W-1,-1,-1):
+    print(trace[i])
