@@ -1,0 +1,36 @@
+import sys
+n = int(input())
+
+num_lst= sorted(list(map(int,sys.stdin.readline().split())))
+
+LP,RP = 0, n-1
+comp = 9999999999
+while True:
+    if num_lst[LP] > 0 and LP != RP: 
+    
+        std_comp = abs(num_lst[LP] + num_lst[LP+1]) 
+        if comp >= std_comp:
+            comp = std_comp
+            print(num_lst[LP], num_lst[LP+1])
+            break
+            
+    elif num_lst[RP] <0 and LP!= RP:
+        std_comp = abs(num_lst[RP] + num_lst[RP-1])
+        if comp >= std_comp:
+            comp = std_comp
+            print(num_lst[RP-1],num_lst[RP])
+            break
+            
+    std_comp = abs(num_lst[LP] + num_lst[RP]) 
+    if comp >= std_comp:
+        comp = std_comp
+        ans = [num_lst[LP],num_lst[RP]]
+
+    if abs(num_lst[LP]) >= abs(num_lst[RP]):
+        LP += 1
+    else:
+        RP -= 1
+
+    if LP == RP:
+        print(*ans)
+        break
