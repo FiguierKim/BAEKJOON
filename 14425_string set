@@ -1,0 +1,12 @@
+import sys
+
+n,m = map(int,input().split())
+cnt = 0
+strings = {sys.stdin.readline() for i in range(n)}
+
+for j in range(m):
+    tmp = sys.stdin.readline()
+    if tmp in strings:
+        cnt += 1
+        
+print(cnt)
