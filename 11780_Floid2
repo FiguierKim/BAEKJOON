@@ -7,7 +7,7 @@ def trace(TraceArr, start, end):
     now = TraceArr[start][end]
     if now is None:
         return [start, end]
-    return trace(TraceArr, start, now)[:-1] + trace(TraceArr, now, end)
+    return trace(TraceArr, start, now)[:-1] + trace(TraceArr, now, end) 
 
 def printResult(n, Arr, TraceArr):
     for i in range(1, n + 1):
