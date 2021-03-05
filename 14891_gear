@@ -7,7 +7,7 @@ def rotation(n, d):
     direction = [0 for i in range(4)]
     isRotate[n] = True
     direction[n] = d
-    tempn = n
+    tempn = n 
     tempd = d
     
     for i in range(n + 1, 4):
