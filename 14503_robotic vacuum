@@ -11,7 +11,7 @@ def clean(x, y, d):
         ans += 1
     for _ in range(4):
         nd = (d + 3) % 4
-        nx = x + dx[nd]
+        nx = x + dx[nd] 
         ny = y + dy[nd]
         if a[nx][ny] == 0:
             clean(nx, ny, nd)
