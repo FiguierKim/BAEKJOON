@@ -3,7 +3,7 @@ import sys
 input = sys.stdin.readline
 n, m = map(int, input().split())
 s = [[] for i in range(n + 1)] 
-d = [0 for i in range(m + 1)]
+d = [0 for i in range(m + 1)] 
 cnt = 0
 
 def dfs(start):
