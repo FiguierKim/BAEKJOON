@@ -6,7 +6,7 @@ def a_brute_force(l, w):
     a_brute_force(l + 1, w)
     a_brute_force(l + 1, w + a_weight[l])
     
-def b_brute_force(l, w):
+def b_brute_force(l, w): 
     if l >= len(b_weight):
         b_sum.append(w)
         return
