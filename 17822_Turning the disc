@@ -1,0 +1,62 @@
+from copy import deepcopy
+import sys
+
+input = sys.stdin.readline
+def bfs(x, y):
+    temp = []
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if 0 < nx <= n and 0 <= ny < m:
+            if s[x][y] == s[nx][ny]: temp.append([nx, ny])
+    return temp
+    
+dx = [1, -1, 0, 0]
+dy = [0, 0, -1, 1]
+n, m, t = map(int, input().split())
+s = [[]]
+r = []
+
+for i in range(n): s.append(list(map(int, input().split())))
+for i in range(t): r.append(list(map(int, input().split())))
+for x, d, k in r:
+    tx = x
+    while tx <= n:
+        if d == 0: s[tx] = s[tx][-k:] + s[tx][:-k]
+        elif d == 1: s[tx] = s[tx][k:] + s[tx][:k]
+        tx += x
+    temp = deepcopy(s)
+    isTrue = False
+    for i in range(1, n + 1):
+        for j in range(m):
+            if s[i][j] != 0:
+                te = bfs(i, j)
+                if te:
+                    isTrue = True
+                    temp[i][j] = 0
+                    for a, b in te: temp[a][b] = 0
+        if s[i][m - 1] != 0:
+            if s[i][m - 1] == s[i][0]:
+                isTrue = True
+                temp[i][m - 1], temp[i][0] = 0, 0
+    if isTrue == False:
+        num = 0
+        cnt = 0
+        for i in range(1, n + 1):
+            for j in range(m):
+                if temp[i][j] != 0:
+                    num += temp[i][j]
+                    cnt += 1
+        if cnt != 0:
+            ever = num / cnt
+            for i in range(1, n + 1):
+                for j in range(m):
+                    if temp[i][j] != 0:
+                        if temp[i][j] < ever: temp[i][j] += 1
+                        elif temp[i][j] > ever: temp[i][j] -= 1
+    s = deepcopy(temp)
+    
+result = 0
+for i in range(1, n + 1): result += sum(s[i])
+
+print(result)
